@@ -1,4 +1,4 @@
-package Tree.tests;
+package Tree.tests.Vector;
 
 import java.util.*;
 

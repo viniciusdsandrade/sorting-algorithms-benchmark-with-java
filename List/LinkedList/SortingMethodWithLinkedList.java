@@ -1,8 +1,6 @@
-package Tree.tests;
+package Tree.tests.LinkedList;
 
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 public class SortingMethodWithLinkedList {
 
@@ -36,31 +34,5 @@ public class SortingMethodWithLinkedList {
             }
             if (!swapped) break;
         }
-    }
-
-    public static void main(String[] args) {
-        // Teste 1: Lista vazia
-        LinkedList<Integer> emptyList = new LinkedList<>();
-        System.out.println("Lista vazia antes da ordenação: " + emptyList);
-        SortingMethodWithLinkedList.bubbleSort(emptyList);
-        System.out.println("Lista vazia depois da ordenação: " + emptyList);
-
-        // Teste 2: Lista com um elemento
-        LinkedList<Integer> singleElementList = new LinkedList<>(List.of(5));
-        System.out.println("\nLista com um elemento antes da ordenação: " + singleElementList);
-        SortingMethodWithLinkedList.bubbleSort(singleElementList);
-        System.out.println("Lista com um elemento depois da ordenação: " + singleElementList);
-
-        // Teste 3: Lista já ordenada
-        LinkedList<Integer> sortedList = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5));
-        System.out.println("\nLista já ordenada antes da ordenação: " + sortedList);
-        SortingMethodWithLinkedList.bubbleSort(sortedList);
-        System.out.println("Lista já ordenada depois da ordenação: " + sortedList);
-
-        // Teste 4: Lista desordenada
-        LinkedList<Integer> unsortedList = new LinkedList<>(Arrays.asList(5, 2, 8, 1, 9, 3));
-        System.out.println("\nLista desordenada antes da ordenação: " + unsortedList);
-        SortingMethodWithLinkedList.bubbleSort(unsortedList);
-        System.out.println("Lista desordenada depois da ordenação: " + unsortedList);
     }
 }
