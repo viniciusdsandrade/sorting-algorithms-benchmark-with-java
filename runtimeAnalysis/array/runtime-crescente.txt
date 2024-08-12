@@ -1,0 +1,26 @@
+Tabela de Runtime com vetor de inteiros dispostos aleatoriamente
+
+Tamanho do Vetor
+V[10]       V[100]      V[1.000]     V[10.000]    V[100.000]   V[250.000]
+
+Nº Ciclos
+100.000.000 10.000.000  1.000.000    10.000       100          5
+
+Tempo Total Ciclos (s)
+458.973     583.059     1.293.218    1.66832      1.900583     635.2551
+
+Tempo Total (s)
+1.5079683   700.971     1.314683     1.67001      1.900818     635.3343
+
+Algoritmos
+SelectionSort      197 ns     6.809 ns     211.862 ns   27.4855 ns   2.37895 ms   21.8617 s
+Bubble Sort        300 ns     16.387 ns    696.283 ns   119.7336 ms  15.8173 s    97.9149 s
+Merge Sort         653 ns     7.131 ns     71.776 ns    1.2821 ms    14.7968 ms   57.6676 ms
+Heap Sort          354 ns     5.345 ns     60.154 ns    1.1046 ms    13.088 ms    45.7802 ns
+Insertion Sort     191 ns     2.040 ns     50.778 ns    7.3226 ms    735.6806 ms  6.9741 s
+Counting Sort      202 ns     515 ns       3.376 ns     75.954 ns    1.0929 ms    10.0850 ms
+Radix Sort         556 ns     2.969 ns     23.136 ns    560.229 ns   5.4913 ms    41.1678 ns
+Bucket Sort        938 ns     5.552 ns     39.759 ns    669.375 ns   8.37653 ms   49.9767 ms
+Quick Sort         347 ns     4.071 ns     45.327 ns    787.152 ns   8.796 ms     27.8047 ms
+Shell Sort         251 ns     4.005 ns     54.636 ns    1.15341 ms   15.0184 ms   39.6974 ms
+Dual Pivot Quicksort 207 ns   3.094 ns     35.588 ns    617.169 ns   7.1469 ms    27.99634 ms
