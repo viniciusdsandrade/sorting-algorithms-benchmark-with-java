@@ -5,7 +5,7 @@ import static java.lang.Math.pow;
 import static java.lang.System.arraycopy;
 import static java.util.Arrays.*;
 
-public class Sorting {
+public class SortingMethodWithArray {
 
     public enum SORT_ALGORITHM {
         SELECTION_SORT,

@@ -3,7 +3,7 @@ package Tree.tests;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import static Tree.tests.Sorting.*;
+import static Tree.tests.SortingMethodWithArray.*;
 import static java.lang.Math.*;
 import static java.lang.String.format;
 import static java.lang.System.nanoTime;
@@ -39,13 +39,13 @@ public class RuntimeTestWithArray {
 //        test_vetor_10_000_aleatorio(TEN_THOUSAND);
 //        test_vetor_100_000_aleatorio(ONE_HUNDRED);
 //         test_vetor_250_000_aleatorio(FIVE);
-//
-//        test_vetor_10_decrescente(TEN_MILLION);
-//        test_vetor_100_decrescente(ONE_MILLION);
+
+//        test_vetor_10_decrescente(ONE_HUNDRED_MILLION);
+//        test_vetor_100_decrescente(TEN_MILLION);
 //        test_vetor_1_000_decrescente(ONE_HUNDRED_THOUSAND);
 //        test_vetor_10_000_decrescente(FIVE_THOUSAND);
 //        test_vetor_20_000_decrescente(ONE_THOUSAND);
-//        test_vetor_22_200_decrescente(ONE_THOUSAND);
+        test_vetor_22_200_decrescente(ONE_THOUSAND);
     }
 
     public static void test_vetor_10_aleatorio(int ciclos) {
@@ -579,23 +579,26 @@ public class RuntimeTestWithArray {
         long[] totalRuntimes = new long[SORT_ALGORITHM.values().length];
         int[] arrOriginal = new int[0];
         Map<SORT_ALGORITHM, int[]> arrayCopies = null;
+        long totalCycleTime = 0;
+        long totalTime = System.nanoTime(); // Início da medição do tempo total de execução
 
         for (int i = 0; i < ciclos; i++) {
-            arrOriginal = generateDescendingRandom(1_000, 0, 1_000);
+            arrOriginal = generateDescendingRandom(1_000, 0, 1_000); // Gera array decrescente de 1.000 elementos
             arrayCopies = generateArrayCopies(arrOriginal);
 
-            long cycleStartTime = System.nanoTime();
+            long cycleStartTime = System.nanoTime(); // Início da medição do tempo do ciclo
             for (SORT_ALGORITHM algorithm : SORT_ALGORITHM.values()) {
                 int[] arrayCopy = arrayCopies.get(algorithm);
-                long startTime = System.nanoTime();
+                long startTime = System.nanoTime(); // Início da medição do tempo de execução do algoritmo
                 measureExecutionTime(algorithm, arrayCopy);
-                long duration = System.nanoTime() - startTime;
-
+                long duration = System.nanoTime() - startTime; // Duração do tempo de execução do algoritmo
                 totalRuntimes[algorithm.ordinal()] += duration;
             }
-            long cycleDuration = System.nanoTime() - cycleStartTime;
+            long cycleDuration = System.nanoTime() - cycleStartTime; // Duração do tempo do ciclo
             System.out.printf("Ciclo %d: %d ns%n", (i + 1), cycleDuration);
+            totalCycleTime += cycleDuration; // Acumula o tempo de cada ciclo
         }
+        long totalTimeElapsed = System.nanoTime() - totalTime; // Tempo total de execução do programa
 
         System.out.println("Array Original: " + Arrays.toString(arrOriginal));
 
@@ -604,10 +607,28 @@ public class RuntimeTestWithArray {
             System.out.printf("Média Runtime %-23s: %d ns%n", algorithm.name(), avgRuntime);
         }
 
+        // Criação do DecimalFormat para formatação
+        DecimalFormat dfMillis = new DecimalFormat("#,###.######");
+        DecimalFormat dfSeconds = new DecimalFormat("#,###.######");
+
+        // Conversão para milissegundos e segundos
+        double totalTimeMillis = totalCycleTime / 1_000_000.00;
+        double totalTimeSeconds = totalCycleTime / 1_000_000_000.00;
+        double totalTimeElapsedMillis = totalTimeElapsed / 1_000_000.00;
+        double totalTimeElapsedSeconds = totalTimeElapsed / 1_000_000_000.00;
+
+        // Impressão dos tempos em diferentes unidades com formatação
+        System.out.println("Tempo total de todos os ciclos (ns):     " + totalCycleTime + " ns");
+        System.out.println("Tempo total de todos os ciclos (ms):     " + dfMillis.format(totalTimeMillis) + " ms");
+        System.out.println("Tempo total de todos os ciclos  (s):     " + dfSeconds.format(totalTimeSeconds) + " s");
+        System.out.println("Tempo total de execução do programa (ns): " + totalTimeElapsed + " ns");
+        System.out.println("Tempo total de execução do programa (ms): " + dfMillis.format(totalTimeElapsedMillis) + " ms");
+        System.out.println("Tempo total de execução do programa  (s): " + dfSeconds.format(totalTimeElapsedSeconds) + " s");
+
         System.out.print("Ver todos os arrays? 1 - Sim, 0 - Não : ");
         if (scanner.hasNextInt()) {
             boolean seeAllArrays = scanner.nextInt() == 1;
-            scanner.nextLine();
+            scanner.nextLine(); // Consumir a quebra de linha
 
             if (seeAllArrays && arrayCopies != null) {
                 arrayCopies = generateArrayCopies(arrOriginal);
@@ -942,10 +963,10 @@ public class RuntimeTestWithArray {
      * </p>
      *
      * @param algorithm o algoritmo de ordenação a ser executado.
-     *                  Este parâmetro é um enum {@link Sorting.SORT_ALGORITHM} que indica o tipo de algoritmo.
+     *                  Este parâmetro é um enum {@link SortingMethodWithArray.SORT_ALGORITHM} que indica o tipo de algoritmo.
      * @param array     o array de inteiros sobre o qual o algoritmo de ordenação será executado.
      */
-    private static void measureExecutionTime(Sorting.SORT_ALGORITHM algorithm, int[] array) {
+    private static void measureExecutionTime(SortingMethodWithArray.SORT_ALGORITHM algorithm, int[] array) {
         long startTime = nanoTime();
         switch (algorithm) {
             case SELECTION_SORT -> selectionSort(array);
@@ -966,14 +987,14 @@ public class RuntimeTestWithArray {
     /**
      * Gera cópias de um array original para cada algoritmo de ordenação disponível.
      * <p>
-     * Esta função recebe um array original e cria cópias deste array para cada algoritmo de ordenação definido no enum {@link Sorting.SORT_ALGORITHM}.
+     * Esta função recebe um array original e cria cópias deste array para cada algoritmo de ordenação definido no enum {@link SortingMethodWithArray.SORT_ALGORITHM}.
      * As cópias são armazenadas em um mapa, onde a chave é o algoritmo e o valor é a cópia do array.
      * </p>
      *
      * @param originalArray o array original de inteiros que será copiado.
      * @return um mapa {@link Map} onde as chaves são os algoritmos de ordenação e os valores são cópias do array original.
      */
-    private static Map<Sorting.SORT_ALGORITHM, int[]> generateArrayCopies(int[] originalArray) {
+    private static Map<SortingMethodWithArray.SORT_ALGORITHM, int[]> generateArrayCopies(int[] originalArray) {
         Map<SORT_ALGORITHM, int[]> arrayCopies = new EnumMap<>(SORT_ALGORITHM.class);
         for (SORT_ALGORITHM algorithm : SORT_ALGORITHM.values())
             arrayCopies.put(algorithm, copyOf(originalArray, originalArray.length));
