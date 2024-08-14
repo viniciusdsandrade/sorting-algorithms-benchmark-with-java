@@ -37,22 +37,49 @@ public class SortingMethodWithGenericList {
         }
     }
 
+    /**
+     * Ordena uma lista de elementos utilizando o algoritmo de ordenação por inserção (Insertion Sort).
+     *
+     * <p>O Insertion Sort funciona dividindo a lista em duas partes: uma parte ordenada e uma parte não ordenada.
+     * Ele itera pela parte não ordenada, pegando um elemento de cada vez e inserindo-o na posição correta
+     * dentro da parte ordenada.</p>
+     *
+     * <p>O algoritmo é eficiente para listas pequenas ou quase ordenadas, com uma complexidade de tempo média de
+     * {@code O(n²)}, mas pode ser ineficiente para grandes conjuntos de dados desordenados.</p>
+     *
+     * @param list A lista de elementos a ser ordenada. Os elementos devem implementar a interface {@code Comparable}.
+     * @param <T>  O tipo dos elementos na lista.
+     */
+    public static <T extends Comparable<T>> void insertionSort(List<T> list) {
+        for (int i = 1; i < list.size(); i++) {
+            T key = list.get(i);
+            int j = i - 1;
+
+            // Move elementos maiores que key para a direita
+            while (j >= 0 && list.get(j).compareTo(key) > 0) {
+                list.set(j + 1, list.get(j));
+                j--;
+            }
+            list.set(j + 1, key);
+        }
+    }
+
     public static void main(String[] args) {
         // Testando com números inteiros
         List<Integer> array_list = new ArrayList<>(Arrays.asList(64, 34, 25, 12, 22, 11, 90));
-        System.out.println("Lista original: " + array_list);
-        bubbleSort(array_list);
-        System.out.println("Lista ordenada: " + array_list);
+        System.out.println("Lista original (ArrayList): " + array_list);
+        insertionSort(array_list);
+        System.out.println("Lista ordenada (ArrayList): " + array_list);
 
         List<Integer> vector_list = new Vector<>(Arrays.asList(64, 34, 25, 12, 22, 11, 90));
-        System.out.println("Lista original: " + vector_list);
-        bubbleSort(vector_list);
-        System.out.println("Lista ordenada: " + vector_list);
+        System.out.println("Lista original (Vector): " + vector_list);
+        insertionSort(vector_list);
+        System.out.println("Lista ordenada (Vector): " + vector_list);
 
         List<Integer> linked_list = new LinkedList<>(Arrays.asList(64, 34, 25, 12, 22, 11, 90));
-        System.out.println("Lista original: " + linked_list);
-        bubbleSort(linked_list);
-        System.out.println("Lista ordenada: " + linked_list);
+        System.out.println("Lista original (LinkedList): " + linked_list);
+        insertionSort(linked_list);
+        System.out.println("Lista ordenada (LinkedList): " + linked_list);
 
         List<Integer> stack_list = new Stack<>();
         stack_list.add(64);
@@ -62,8 +89,8 @@ public class SortingMethodWithGenericList {
         stack_list.add(22);
         stack_list.add(11);
         stack_list.add(90);
-        System.out.println("Lista original: " + stack_list);
-        bubbleSort(stack_list);
-        System.out.println("Lista ordenada: " + stack_list);
+        System.out.println("Lista original (Stack): " + stack_list);
+        insertionSort(stack_list);
+        System.out.println("Lista ordenada (Stack): " + stack_list);
     }
 }

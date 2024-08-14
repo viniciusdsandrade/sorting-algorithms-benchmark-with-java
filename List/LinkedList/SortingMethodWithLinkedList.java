@@ -35,4 +35,26 @@ public class SortingMethodWithLinkedList {
             if (!swapped) break;
         }
     }
+
+    /**
+     * Ordena uma lista encadeada de inteiros utilizando o algoritmo de ordenação por inserção (Insertion Sort).
+     *
+     * <p>O Insertion Sort é um algoritmo simples que constrói a lista ordenada um elemento por vez. É eficiente
+     * para pequenos conjuntos de dados e tem uma complexidade de tempo de {@code O(n^2)} no pior caso.</p>
+     *
+     * @param list A lista encadeada de inteiros a ser ordenada.
+     */
+    public static void insertionSort(LinkedList<Integer> list) {
+        for (int i = 1; i < list.size(); i++) {
+            int key = list.get(i);
+            int j = i - 1;
+
+            // Move elements of list[0..i-1], that are greater than key, to one position ahead of their current position
+            while (j >= 0 && list.get(j) > key) {
+                list.set(j + 1, list.get(j));
+                j = j - 1;
+            }
+            list.set(j + 1, key);
+        }
+    }
 }

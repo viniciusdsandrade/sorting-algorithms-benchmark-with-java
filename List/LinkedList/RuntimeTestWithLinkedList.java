@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import static Tree.tests.LinkedList.SortingMethodWithLinkedList.bubbleSort;
+import static Tree.tests.LinkedList.SortingMethodWithLinkedList.insertionSort;
 import static java.lang.System.nanoTime;
 
 public class RuntimeTestWithLinkedList {
@@ -34,7 +35,7 @@ public class RuntimeTestWithLinkedList {
 
     public enum SORT_ALGORITHM {
         BUBBLE_SORT,
-        // ... outros algoritmos
+        INSERCTION_SORT,
     }
 
     public static void test_vetor_10_aleatorio(int ciclos) {
@@ -129,7 +130,7 @@ public class RuntimeTestWithLinkedList {
         long startTime = nanoTime();
         switch (algorithm) {
             case BUBBLE_SORT -> bubbleSort(list);
-            // ... outros algoritmos para LinkedList
+            case INSERCTION_SORT -> insertionSort(list);
         }
         nanoTime();
     }
@@ -173,7 +174,7 @@ public class RuntimeTestWithLinkedList {
      *
      * @param list A LinkedList de inteiros a ser verificada.
      * @return {@code true} se a LinkedList estiver ordenada em ordem crescente,
-     *         {@code false} caso contrário.
+     * {@code false} caso contrário.
      */
     private static boolean isSorted(LinkedList<Integer> list) {
         return isIncreasing(list);
